@@ -3,7 +3,7 @@ package arbitraryarithmetic;
 public class AFloat{
     public String value;
     public AFloat(){
-        this.value="0.0";
+        this.value="0.0";			//initializing
     }
     public AFloat(String value){
         this.value=value;
