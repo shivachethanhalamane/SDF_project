@@ -577,14 +577,14 @@ public class AFloat{
         //printd dividend
         int remaining_decimal_places=0;
         if(totalDecimal<=0){
-            remaining_decimal_places=1000-totalDecimal;
+            remaining_decimal_places=30-totalDecimal;
         }
         else{
             if(result.value.length()<=totalDecimal){
-                remaining_decimal_places=1000-totalDecimal;
+                remaining_decimal_places=30-totalDecimal;
         }
             else{
-                remaining_decimal_places=1000-(result.value.length()-totalDecimal);
+                remaining_decimal_places=30-(result.value.length()-totalDecimal);
             }
         
         }

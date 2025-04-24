@@ -12,6 +12,7 @@ public class MyInfArith {
         String operation = args[1];
         String num1 = args[2];
         String num2 = args[3];
+        
         if(type.equals("int")){
             AInteger a1 = new AInteger(num1);
             AInteger a2 = new AInteger(num2);
