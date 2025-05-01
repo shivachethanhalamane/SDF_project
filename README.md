@@ -139,7 +139,8 @@ java MyInfArith float div 1 3
 
 - Decimal precision capped at **30 digits** (per `BigDecimal` rules)  
 - No support for scientific/exponential notation  
-- Input must be a well-formed numeric string  
+- Input must be a well-formed numeric string
+- + should not be used for positive integers denotation.
 
 ---
 
@@ -147,7 +148,6 @@ java MyInfArith float div 1 3
 
 - **Scientific Notation** support (e.g. “1.23e-4”)  
 - **Configurable Precision** beyond 30 digits  
-- **Performance Optimizations** (Karatsuba, FFT-based multiply)  
 - **Thread‐safe API** for concurrent operations  
 
 ---
@@ -163,5 +163,5 @@ java MyInfArith float div 1 3
 
 ## 👨‍💻 Authors
 
-- Shiva Chethan — CS24BTECH11057  
-- (Add other team members here)
+- Shiva Chethan Halamane
+- Cs24btech11057
