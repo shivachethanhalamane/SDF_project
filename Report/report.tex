@@ -1,0 +1,144 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{margin=1in}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, linkcolor=blue, urlcolor=blue, citecolor=blue]{hyperref}
+\usepackage{listings}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{CS1023: Software Development Fundamentals}
+\lhead{Arbitrary Precision Arithmetic Library}
+\rfoot{\thepage}
+
+\definecolor{codegray}{gray}{0.95}
+\lstset{
+    backgroundcolor=\color{codegray},
+    basicstyle=\ttfamily\footnotesize,
+    frame=single,
+    breaklines=true
+}
+
+\title{Arbitrary Precision Arithmetic Library in Java\\ \\
+\large CS1023 - Software Development Fundamentals (SDF) Project}
+\author{Shiva Chethan-CS24BTECH11057}
+\date{1\textsuperscript{st}~May 2025}
+
+
+\begin{document}
+\maketitle
+\noindent\textbf{Overview : }Arbitrary precision arithmetic enables calculations with numbers of any size and precision, unrestricted by typical hardware limits. This project implements an arithmetic engine in Java to accurately perform operations on extremely large integers and floating-point numbers. By representing numbers as strings and designing custom algorithms, it avoids overflow and rounding errors common in standard fixed-precision arithmetic. The system supports fundamental operations such as addition, subtraction, multiplication, and division for both integer and floating-point values. 
+
+\tableofcontents
+\newpage
+
+\section{Introduction}
+The objective of this project is to develop a Java library capable of handling arithmetic operations on numbers of arbitrary size and precision, avoiding limitations of Java's built-in primitive types. Using string manipulation, we bypass overflow constraints and achieve high precision in floating point calculations. This project also emphasizes sound software engineering practices such as modular design, comprehensive documentation, testing, and version control.
+
+\section{Design}
+\subsection{Design Decisions}
+\begin{itemize}
+    \item \textbf{Character-Level Arithmetic:} Instead of relying on built-in numerical types, the library processes numbers as character strings. This technique eliminates the limitations imposed by fixed-size datatypes and supports computations with theoretically unlimited size and precision.
+
+    \item \textbf{Input Refinement:} To ensure consistency, all user-provided numbers are cleaned and standardized. This includes eliminating insignificant zeros and formatting the numbers uniformly before any operations are applied.
+
+    \item \textbf{Internal Sign Encoding:} The sign of a number is decoupled from its digits and stored separately using a boolean flag. This separation simplifies arithmetic logic by allowing operations to be performed on absolute values with sign corrections applied afterward.
+
+    \item \textbf{Precision-Controlled Decimals:} For floating-point calculations, the system performs decimal alignment by equalizing the length of fractional parts. This allows digit-by-digit operations without risking misalignment or data loss.
+
+    
+    \item \textbf{Graceful Failure Mechanisms:} Rather than failing silently or producing incorrect results, the library actively detects and reports erroneous conditions—such as invalid inputs or division by zero—through meaningful exception messages.
+
+    
+\end{itemize}
+
+
+\end{itemize}
+\subsection{Project Architecture}
+The project is organized as follows:
+\begin{itemize}[leftmargin=*]
+    \item \texttt{AInteger} and \texttt{AFloat}: Core classes containing logic for all arithmetic operations.
+    \item \texttt{MyInfArith}: Entry point for CLI-based usage, handling argument parsing and invoking appropriate methods.
+    \item \texttt{src/main/java/arbitraryarithmetic}: Contains main source code.
+    \item \texttt{src/test/java/arbitraryarithmetic}: Contains JUnit tests.
+\end{itemize}
+
+
+
+\subsection{Project Structure}
+The directory structure of the project is as follows:
+\begin{verbatim}
+root/
+├── RAW/
+│   ├── AFloat.class
+│   ├── AFloat.java
+│   ├── AInteger.class
+│   └── AInteger.java
+├── myinfarith/
+│   ├── MyInfArith.class
+│   └── MyInfArith.java
+├── src/
+│   └── main/java/arbitraryarithmetic/
+│       ├── AFloat.class
+│       ├── AFloat.java
+│       └── AInteger.java
+├── target/
+│   ├── classes/arbitraryarithmetic/
+│   │   ├── AFloat.class
+│   │   └── AInteger.class
+│   ├── maven-archiver/
+│   │   └── pom.properties
+│   ├── maven-status/maven-compiler-plugin/
+│   │   ├── createdFiles.lst
+│   │   └── inputFiles.lst
+│   ├── aarithmetic.jar
+├── MyInfArith.py
+├── pom.xml
+└── README.md
+\end{verbatim}
+\section{Implementation}
+\subsection{Algorithms}
+\begin{itemize}[leftmargin=*]
+    \item \textbf{Addition/Subtraction:} I have used manual borrow and addition logic.
+    Addition of number with opposite signs are subtracted and same signs are added and a minus sign is added at last.
+    \item \textbf{Multiplication:} Multiplying the multiplicand to each digit of the second number and adding reuired zeroes.
+    \item \textbf{Division:} Long division with  subtracting repeatedly and obtaining remainder. Zero is added to remainder and repeatedly subtracted to get 30 digit precision.
+    
+\end{itemize}
+
+\subsection{Edge Case Handling}
+\begin{itemize}[leftmargin=*]
+    \item Division by zero throws \texttt{ArithmeticException} when divided by zero.
+    \item Results like \texttt{-00.000} are normalized to \texttt{0.0}.
+    \item Outputs having trailing zeroes or leading zeroes are removed.
+\end{itemize}
+
+\section{Limitations}
+\begin{itemize}[leftmargin=*]
+    \item Precision is supported up to 30 digits.
+    \item A number like \( \frac{1}{10^{31}} = 0.000\ldots \) (31 digits) is too small to display a non-zero digit within the precision limit.
+    \item Positive numbers should not include a '+' sign. Any number of leading or trailing zeroes will be correctly handled and normalized.
+\end{itemize}
+\section{Verification}
+\begin{itemize}[leftmargin=*]
+    \item All arithmetic operations tested by test cases generated by ChatGpt and manual verification.
+    \item Verified correctness for large inputs, zeros, negative numbers.
+\end{itemize}
+\section{Key Learnings}
+\begin{itemize}[leftmargin=*]
+    \item Learnt how to write long lines of code in Java and debug them.
+    \item Learned how to use Maven Git Latex and import packages.
+    \item Practiced writing clean code and checking every edge case.
+\end{itemize}
+
+\section{References}
+\begin{itemize}[leftmargin=*]
+    \item Apache Maven Documentation
+    \item ChatGPT for helping in maven.
+\end{itemize}
+
+\end{document}
